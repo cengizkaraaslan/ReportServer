@@ -129,10 +129,7 @@ namespace FR.Controllers
             {
                 return "";
             }
-            finally
-            {
-                GC.SuppressFinalize(this);
-            }
+           
         }
     }
 }
