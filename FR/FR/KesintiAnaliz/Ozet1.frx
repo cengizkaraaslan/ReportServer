@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="07/24/2020 13:40:12" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Text7_BeforePrint(object sender, EventArgs e)
+    {
+     
+        
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tsBA0tGOwLb5+4rd8SpCoC+PGDdJb+HZ9HMiNKKVUjGbzBQFq4r19yOH56+I+Mw3Aqhjm1I7hSV2uEmd/pRdFDQdq/7UOpXsspsDJUPM7P+GRiRV8W9QAM2EQycm2MUahLDVlpbAxos4OzIt1k3LHnLqWguvE1kPWM2lHACGbeF6">
+      <TableDataSource Name="Table" Alias="Q" DataType="System.Int32" Enabled="true" SelectCommand="select i.IlAdi, ii.IlceAdi ,o.SebekeUnsuru,o.KesintiTarihi,o.KesintiSuresi,o.EnKucukImarAlaniIciOG,o.EnKucukImarAlaniIciAG,o.EnKucukImarAlaniDisiOG,o.EnKucukImarAlaniDisiAG,o.AGTazminatMiktari,o.OGTazminatMiktari &#13;&#10;from Ozet_1 o&#13;&#10;inner join Il i on i.Id=o.IlId&#13;&#10;inner join Ilce ii on ii.Id=o.IlceId&#13;&#10;&#13;&#10;where&#13;&#10;(  i.Id= @ilId or  @ilId='00000000-0000-0000-0000-000000000000') and  ( ii.Id=@ilceId or  @ilceId='00000000-0000-0000-0000-000000000000') and&#13;&#10;o.sebekeUnsuru LIKE  '%'+@sebekeUnsuru+'%'">
+        <Column Name="IlAdi" DataType="System.String"/>
+        <Column Name="IlceAdi" DataType="System.String"/>
+        <Column Name="SebekeUnsuru" DataType="System.String"/>
+        <Column Name="KesintiTarihi" DataType="System.DateTime"/>
+        <Column Name="KesintiSuresi" DataType="System.Decimal"/>
+        <Column Name="EnKucukImarAlaniIciOG" DataType="System.Int32"/>
+        <Column Name="EnKucukImarAlaniIciAG" DataType="System.Int32"/>
+        <Column Name="EnKucukImarAlaniDisiOG" DataType="System.Int32"/>
+        <Column Name="EnKucukImarAlaniDisiAG" DataType="System.Int32"/>
+        <Column Name="AGTazminatMiktari" DataType="System.Decimal"/>
+        <Column Name="OGTazminatMiktari" DataType="System.Decimal"/>
+        <CommandParameter Name="ilId" DataType="22" Expression="[ilId]"/>
+        <CommandParameter Name="ilceId" DataType="22" Expression="[ilceId]"/>
+        <CommandParameter Name="sebekeUnsuru " DataType="22" Expression="[sebekeUnsuru]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="ilId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilceId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="sebekeUnsuru" DataType="System.String" Expression="&quot;&quot;"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="220" PaperHeight="480" LeftMargin="1" TopMargin="0" RightMargin="1" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="824.04" Height="37.8">
+      <TextObject Name="Text1" Left="-328.86" Top="13.23" Width="1493.1" Height="18.9" Text="Parçalı 12 Saati Aşan Kesintiler" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="42.01" Width="824.04" Height="52.92" Guides="0,56.7">
+      <TextObject Name="Text5" Width="58.59" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="İl" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="122.85" Width="90.72" Height="52.92" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Şebeke Unsuru" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="60.48" Width="60.48" Height="52.92" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İlçe" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="211.68" Width="79.38" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="Kesinti Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="291.06" Width="60.48" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="Kesinti Süresi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="351.54" Width="75.6" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="En Küçük İmar Alanı İçi OG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="427.14" Width="75.6" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="En Küçük İmar Alanı İçi AG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="578.34" Width="75.6" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="En Küçük İmar Alanı Dışı AG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="502.74" Width="75.6" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="En Küçük İmar Alanı Dışı OG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text17" Left="653.94" Width="75.6" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="AG Tazminat Miktarı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text18" Left="729.54" Width="86.94" Height="52.92" Border.Lines="All" Fill.Color="Yellow" Text="OG Tazminat Miktarı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data" Top="99.14" Width="824.04" Height="275.94" CanGrow="true" CanShrink="true" DataSource="Table" RowCount="1000" KeepTogether="true" KeepDetail="true">
+      <TextObject Name="Text2" Width="56.7" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.IlAdi]"/>
+      <TextObject Name="Text3" Left="56.7" Width="60.48" Height="18.9" Border.Lines="All" Text="[Q.IlceAdi]"/>
+      <TextObject Name="Text4" Left="117.18" Width="94.5" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.SebekeUnsuru]"/>
+      <TextObject Name="Text6" Left="211.68" Width="79.38" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.KesintiTarihi]" Format="Date" Format.Format="d"/>
+      <TextObject Name="Text7" Left="291.06" Width="60.48" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.KesintiSuresi]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="351.54" Width="75.6" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.EnKucukImarAlaniIciOG]"/>
+      <TextObject Name="Text19" Left="427.14" Width="79.38" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.EnKucukImarAlaniIciAG]"/>
+      <TextObject Name="Text20" Left="506.52" Width="71.82" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.EnKucukImarAlaniDisiOG]"/>
+      <TextObject Name="Text21" Left="578.34" Width="75.6" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.EnKucukImarAlaniDisiAG]"/>
+      <TextObject Name="Text22" Left="729.54" Width="86.94" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.AGTazminatMiktari]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="653.94" Width="75.6" Height="18.9" Border.Lines="All" CanShrink="true" Text="[Q.OGTazminatMiktari]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+  </ReportPage>
+</Report>

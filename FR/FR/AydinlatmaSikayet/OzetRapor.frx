@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report DoublePass="true" ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="09/04/2020 16:42:58" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ModelToplam
+  {
+    public int Islemde;
+    public int Sonuc;
+    public int ZamanindaCozumlendi;
+    public int ZamanindaCozumlenmedi;
+    public int Toplam;
+    
+  }
+  public class ReportScript
+  {
+    private ModelToplam ilce=new ModelToplam();
+    private List&lt;ModelToplam&gt; listIlce= new List&lt;ModelToplam&gt;();
+    private ModelToplam il=new ModelToplam();
+    private List&lt;ModelToplam&gt; listIl= new List&lt;ModelToplam&gt;();
+    private ModelToplam sirket=new ModelToplam();
+    private List&lt;ModelToplam&gt; listSirket= new List&lt;ModelToplam&gt;();
+   
+
+    private void GroupHeader3_BeforePrint(object sender, EventArgs e)
+    {
+       int groupNumber = ((Int32)Report.GetVariableValue(&quot;Row#&quot;));
+    
+       if (Engine.FinalPass)
+       {
+        ilce.Islemde =listIlce[groupNumber - 1].Islemde;
+        ilce.Sonuc= listIlce[groupNumber - 1].Sonuc;
+        ilce.ZamanindaCozumlendi= listIlce[groupNumber - 1].ZamanindaCozumlendi;
+        ilce.ZamanindaCozumlenmedi= listIlce[groupNumber - 1].ZamanindaCozumlenmedi;
+        ilce.Toplam= listIlce[groupNumber - 1].Toplam;
+       }
+    }
+
+    private void GroupFooter1_BeforePrint(object sender, EventArgs e)
+    {   
+       ModelToplam ilceTotal=new ModelToplam() ;
+       ilceTotal.Islemde=(int)Report.GetTotalValue(&quot;IlceToplamIslemde&quot;);
+       ilceTotal.Sonuc= (int)Report.GetTotalValue(&quot;IlceToplamSonuc&quot;);
+       ilceTotal.ZamanindaCozumlenmedi= (int)Report.GetTotalValue(&quot;IlceToplamZamanındaCozumlenmedi&quot;);
+       ilceTotal.ZamanindaCozumlendi= (int)Report.GetTotalValue(&quot;IlceToplamZamanindaCozumlendi&quot;);
+       ilceTotal.Toplam= (int)Report.GetTotalValue(&quot;IlceGenelToplam&quot;);
+      
+      if (!Engine.FinalPass)
+      {
+         listIlce.Add(ilceTotal);
+        
+       }
+      
+    }
+
+    private void GroupHeader2_BeforePrint(object sender, EventArgs e)
+    {
+      int groupNumber = ((Int32)Report.GetVariableValue(&quot;Row#&quot;));
+    
+      if (Engine.FinalPass)
+      {
+        il.Islemde =listIl[groupNumber - 1].Islemde;
+        il.Sonuc= listIl[groupNumber - 1].Sonuc;
+        il.ZamanindaCozumlenmedi= listIl[groupNumber - 1].ZamanindaCozumlenmedi;
+        il.ZamanindaCozumlendi= listIl[groupNumber - 1].ZamanindaCozumlendi;
+        il.Toplam= listIl[groupNumber - 1].Toplam;
+      }
+    }
+
+    private void GroupFooter3_BeforePrint(object sender, EventArgs e)
+    {
+      ModelToplam ilTotal=new ModelToplam() ;
+      ilTotal.Islemde=(int)Report.GetTotalValue(&quot;IlToplamIslemde&quot;);
+      ilTotal.Sonuc= (int)Report.GetTotalValue(&quot;IlToplamSonuc&quot;);
+      ilTotal.ZamanindaCozumlenmedi= (int)Report.GetTotalValue(&quot;IlToplamZamanındaCozumlenmedi&quot;);
+      ilTotal.ZamanindaCozumlendi= (int)Report.GetTotalValue(&quot;IlToplamZamanindaCozumlendi&quot;);
+      ilTotal.Toplam= (int)Report.GetTotalValue(&quot;IlGenelToplam&quot;);
+      
+      if (!Engine.FinalPass)
+      {
+        listIl.Add(ilTotal);
+        
+      }
+    }
+
+    private void GroupHeader1_BeforePrint(object sender, EventArgs e)
+    {
+      int groupNumber = ((Int32)Report.GetVariableValue(&quot;Row#&quot;));
+    
+      if (Engine.FinalPass)
+      {
+        sirket.Islemde =listSirket[groupNumber - 1].Islemde;
+        sirket.Sonuc= listSirket[groupNumber - 1].Sonuc;
+        sirket.ZamanindaCozumlenmedi= listSirket[groupNumber - 1].ZamanindaCozumlenmedi;
+        sirket.ZamanindaCozumlendi= listSirket[groupNumber - 1].ZamanindaCozumlendi;
+        sirket.Toplam= listSirket[groupNumber - 1].Toplam;
+      }
+    }
+
+    private void GroupFooter2_BeforePrint(object sender, EventArgs e)
+    {
+      ModelToplam sirketTotal=new ModelToplam() ;
+      sirketTotal.Islemde=(int)Report.GetTotalValue(&quot;SirketToplamIslemde&quot;);
+      sirketTotal.Sonuc= (int)Report.GetTotalValue(&quot;SirketToplamSonuc&quot;);
+      sirketTotal.ZamanindaCozumlenmedi= (int)Report.GetTotalValue(&quot;SirketToplamZamanındaCozumlenmedi&quot;);
+      sirketTotal.ZamanindaCozumlendi= (int)Report.GetTotalValue(&quot;SirketToplamZamanindaCozumlendi&quot;);
+      sirketTotal.Toplam= (int)Report.GetTotalValue(&quot;SirketGenelToplam&quot;);
+      
+      if (!Engine.FinalPass)
+      {
+        listSirket.Add(sirketTotal);
+        
+      }
+    }
+  }
+}
+</ScriptText>
+  <Styles>
+    <Style Name="Sirket" Fill.Color="SteelBlue"/>
+    <Style Name="il" Fill.Color="LightSkyBlue"/>
+    <Style Name="ilce" Fill.Color="LightBlue"/>
+    <Style Name="Mahalle" Fill.Color="AliceBlue"/>
+    <Style Name="Baslik" Fill.Color="LightSteelBlue"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tl81Wn1sByiZ8BpmRi3BQE1jGcq0gIpYtYaLRUvLhEY/+NLu0iFTA32JzJlG0UxgjsQY8YogEWEYoCrSNG9BZIvdwip8GirZ+oFzTXCArpKKdDwEdoZHeRyUmcuqsg9O/HMycL7apB7h63x70gl5sD70OPPASq1IduDipXWaxUOw">
+      <TableDataSource Name="Table" Alias="OzetRapor" DataType="System.Int32" Enabled="true" SelectCommand="exec OzetRapor_SP @DagitimSirketiId,@ilId,@ilceId,@MahalleId,@SikayetNo,@SikayetDurum,@KayitOrtami,@KayitBasTarih,@KayitBitTarih,@MuhletBasTarih,@MuhletBitTarih,@SonlandirmaBasTarih,@SonlandirmaBitTarih">
+        <Column Name="DagitimSirketiAdi" DataType="System.String"/>
+        <Column Name="ilAdi" DataType="System.String"/>
+        <Column Name="ilceAdi" DataType="System.String"/>
+        <Column Name="MahalleAdi" DataType="System.String"/>
+        <Column Name="Islemde" DataType="System.Int32"/>
+        <Column Name="Sonuclandi" DataType="System.Int32"/>
+        <Column Name="Toplam" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[OzetRapor.Islemde]+[OzetRapor.ZamanındaCozumlendi]+[OzetRapor.ZamanındaCozumlenmedi]"/>
+        <Column Name="DagitimSirketiId" DataType="System.Guid"/>
+        <Column Name="ilId" DataType="System.Guid"/>
+        <Column Name="ilceId" DataType="System.Guid"/>
+        <Column Name="MahalleId" DataType="System.Guid"/>
+        <Column Name="ZamanındaCozumlendi" DataType="System.Int32"/>
+        <Column Name="ZamanındaCozumlenmedi" DataType="System.Int32"/>
+        <CommandParameter Name="DagitimSirketiId" DataType="14" Size="50" Expression="[DagitimSirketiId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="ilId" DataType="14" Size="50" Expression="[ilId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="ilceId" DataType="14" Size="50" Expression="[ilceId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="MahalleId" DataType="14" Size="50" Expression="[MahalleId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="SikayetNo" DataType="5" Expression="[SikayetNo]" DefaultValue="-1"/>
+        <CommandParameter Name="SikayetDurum" DataType="8" Expression="[SikayetDurum]" DefaultValue="-1"/>
+        <CommandParameter Name="KayitOrtami" DataType="8" Expression="[KayitOrtami]" DefaultValue="-1"/>
+        <CommandParameter Name="KayitBasTarih" DataType="4" Expression="[KayitBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="KayitBitTarih" DataType="4" Expression="[KayitBitTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="MuhletBasTarih" DataType="4" Expression="[MuhletBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="MuhletBitTarih" DataType="4" Expression="[MuhletBitTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="SonlandirmaBasTarih" DataType="4" Expression="[SonlandirmaBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="SonlandirmaBitTarih" DataType="4" Expression="[SonlandirmaBitTarih]" DefaultValue="1900-01-01"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Table1_Table" ParentDataSource="null" ChildDataSource="Table" ParentColumns="ilceId" ChildColumns="ilceId" Enabled="true"/>
+    <Parameter Name="DagitimSirketiId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilceId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="MahalleId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="SikayetNo" DataType="System.Decimal" Expression="-1"/>
+    <Parameter Name="SikayetDurum" DataType="System.Int16" Expression="-1"/>
+    <Parameter Name="KayitOrtami" DataType="System.Int16" Expression="-1"/>
+    <Parameter Name="KayitBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="KayitBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="MuhletBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="MuhletBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="SonlandirmaBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="SonlandirmaBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Total Name="IlceToplamIslemde" Expression="[OzetRapor.Islemde]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="IlceToplamSonuc" Expression="[OzetRapor.Sonuclandi]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="IlceToplamZamanındaCozumlenmedi" Expression="[OzetRapor.ZamanındaCozumlenmedi]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="IlceToplamZamanindaCozumlendi" Expression="[OzetRapor.ZamanındaCozumlendi]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="IlceGenelToplam" Expression="[OzetRapor.Toplam]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="IlToplamIslemde" Expression="[OzetRapor.Islemde]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="IlToplamSonuc" Expression="[OzetRapor.Sonuclandi]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="IlToplamZamanındaCozumlenmedi" Expression="[OzetRapor.ZamanındaCozumlenmedi]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="IlToplamZamanindaCozumlendi" Expression="[OzetRapor.ZamanındaCozumlendi]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="IlGenelToplam" Expression="[OzetRapor.Toplam]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="SirketToplamIslemde" Expression="[OzetRapor.Islemde]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="SirketToplamSonuc" Expression="[OzetRapor.Sonuclandi]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="SirketToplamZamanındaCozumlenmedi" Expression="[OzetRapor.ZamanındaCozumlenmedi]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="SirketToplamZamanindaCozumlendi" Expression="[OzetRapor.ZamanındaCozumlendi]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="SirketGenelToplam" Expression="[OzetRapor.Toplam]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="GenelToplamIslemde" Expression="[OzetRapor.Islemde]" Evaluator="Data1"/>
+    <Total Name="GenelToplamSonuc" Expression="[OzetRapor.Sonuclandi]" Evaluator="Data1"/>
+    <Total Name="GenelToplamZamanındaCozumlenmedi" Expression="[OzetRapor.ZamanındaCozumlenmedi]" Evaluator="Data1"/>
+    <Total Name="GenelToplamZamanindaCozumlendi" Expression="[OzetRapor.ZamanındaCozumlendi]" Evaluator="Data1"/>
+    <Total Name="GenelToplam" Expression="[OzetRapor.Toplam]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" LeftMargin="1" TopMargin="0" RightMargin="1" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="786.24" Height="47.25">
+      <TextObject Name="Text1" Left="-349.65" Top="18.9" Width="1493.1" Height="18.9" Text="ÖZET RAPOR" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text54" Top="28.35" Width="236.25" Height="18.9" Text="Kayit Tarihi:[KayitBasTarih]-[KayitBitTarih]" Font="Arial, 9pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="786.24" Height="37.8" Guides="0">
+      <TextObject Name="Text5" Width="274.05" Height="37.8" Border.Lines="All" Fill.Color="AliceBlue" Text="Şirket Adı" VertAlign="Center" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text8" Left="274.05" Width="85.05" Height="37.8" Border.Lines="All" Fill.Color="AliceBlue" Text="İşlemde" VertAlign="Center" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text9" Left="359.1" Width="302.4" Height="18.9" Border.Lines="All" Fill.Color="AliceBlue" Text="Sonuçlandırıldı" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text10" Left="359.1" Top="18.9" Width="151.2" Height="18.9" Border.Lines="All" Fill.Color="AliceBlue" Text="Zamanında Çözümlendi" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text11" Left="491.4" Top="18.9" Width="170.1" Height="18.9" Border.Lines="All" Fill.Color="AliceBlue" Text="Zamanında Çözümlenmedi" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text12" Left="661.5" Width="122.85" Height="37.8" Border.Lines="All" Fill.Color="AliceBlue" Text="Toplam" VertAlign="Center" Font="Arial, 9pt, style=Bold"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="93.05" Width="786.24" Height="18.9" Fill.Color="SteelBlue" Style="Sirket" BeforePrintEvent="GroupHeader1_BeforePrint" RepeatOnEveryPage="true" Condition="[OzetRapor.DagitimSirketiId]" SortOrder="None">
+      <TextObject Name="Text17" Width="274.05" Height="18.9" Border.Lines="All" Text="[OzetRapor.DagitimSirketiAdi]"/>
+      <TextObject Name="Text42" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[sirket.Islemde]"/>
+      <TextObject Name="Text44" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[sirket.ZamanindaCozumlenmedi]"/>
+      <TextObject Name="Text45" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[sirket.ZamanindaCozumlendi]"/>
+      <TextObject Name="Text46" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[sirket.Toplam]"/>
+      <GroupHeaderBand Name="GroupHeader2" Top="115.95" Width="786.24" Height="18.9" Fill.Color="LightSkyBlue" Style="il" EvenStylePriority="UseAll" BeforePrintEvent="GroupHeader2_BeforePrint" RepeatOnEveryPage="true" Condition="[OzetRapor.ilId]" SortOrder="None">
+        <TextObject Name="Text18" Left="28.35" Width="245.7" Height="18.9" Border.Lines="All" Text="[OzetRapor.ilAdi]"/>
+        <TextObject Name="Text32" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[il.Islemde]"/>
+        <TextObject Name="Text34" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[il.ZamanindaCozumlenmedi]"/>
+        <TextObject Name="Text35" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[il.ZamanindaCozumlendi]"/>
+        <TextObject Name="Text36" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[il.Toplam]"/>
+        <GroupHeaderBand Name="GroupHeader3" Top="138.85" Width="786.24" Height="18.9" Fill.Color="LightBlue" Style="ilce" EvenStyle="ilce" BeforePrintEvent="GroupHeader3_BeforePrint" RepeatOnEveryPage="true" Condition="[OzetRapor.ilceId]" SortOrder="None">
+          <TextObject Name="Text4" Left="56.7" Width="217.35" Height="18.9" Border.Lines="All" Text="[OzetRapor.ilceAdi]" Font="Arial, 9pt"/>
+          <TextObject Name="Text14" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[ilce.Islemde]"/>
+          <TextObject Name="Text28" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[ilce.ZamanindaCozumlenmedi]"/>
+          <TextObject Name="Text29" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[ilce.ZamanindaCozumlendi]"/>
+          <TextObject Name="Text30" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[ilce.Toplam]"/>
+          <DataBand Name="Data1" Top="161.75" Width="786.24" Height="18.9" DataSource="Table" ParentIdColumn="OzetRapor.ilceId">
+            <TextObject Name="Text27" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[OzetRapor.ZamanındaCozumlendi]" Font="Arial, 9pt"/>
+            <TextObject Name="Text23" Left="85.05" Width="189" Height="18.9" Border.Lines="All" Text="[[OzetRapor.MahalleAdi]]" Font="Arial, 9pt"/>
+            <TextObject Name="Text24" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[OzetRapor.Islemde]" Font="Arial, 9pt"/>
+            <TextObject Name="Text26" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[OzetRapor.ZamanındaCozumlenmedi]" Font="Arial, 9pt"/>
+            <TextObject Name="Text15" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[OzetRapor.Toplam]"/>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter1" Top="184.65" Width="786.24" Height="18.9" Visible="false" BeforePrintEvent="GroupFooter1_BeforePrint" KeepWithData="true">
+            <TextObject Name="Text2" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[IlceToplamIslemde]"/>
+            <TextObject Name="Text7" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[IlceToplamZamanındaCozumlenmedi]"/>
+            <TextObject Name="Text13" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[IlceToplamZamanindaCozumlendi]"/>
+            <TextObject Name="Text16" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[IlceGenelToplam]"/>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter3" Top="207.55" Width="786.24" Height="18.9" Visible="false" BeforePrintEvent="GroupFooter3_BeforePrint">
+          <TextObject Name="Text19" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[IlToplamIslemde]"/>
+          <TextObject Name="Text21" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[IlToplamZamanındaCozumlenmedi]"/>
+          <TextObject Name="Text22" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[IlToplamZamanindaCozumlendi]"/>
+          <TextObject Name="Text31" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[IlGenelToplam]"/>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter2" Top="230.45" Width="786.24" Height="18.9" Visible="false" BeforePrintEvent="GroupFooter2_BeforePrint">
+        <TextObject Name="Text37" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[SirketToplamIslemde]"/>
+        <TextObject Name="Text39" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[SirketToplamZamanındaCozumlenmedi]"/>
+        <TextObject Name="Text40" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[SirketToplamZamanindaCozumlendi]"/>
+        <TextObject Name="Text41" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[SirketGenelToplam]"/>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="253.35" Width="786.24" Height="18.9">
+      <TextObject Name="Text47" Width="274.05" Height="18.9" Border.Lines="All" Text="Toplam" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text48" Left="274.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[GenelToplamIslemde]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text50" Left="491.4" Width="170.1" Height="18.9" Border.Lines="All" Text="[GenelToplamZamanındaCozumlenmedi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text51" Left="359.1" Width="132.3" Height="18.9" Border.Lines="All" Text="[GenelToplamZamanindaCozumlendi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text52" Left="661.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[GenelToplam]" Font="Arial, 10pt, style=Bold"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="276.25" Width="786.24" Height="18.9">
+      <TextObject Name="Text53" Left="633.15" Width="151.2" Height="18.9" Text="[Page]/[TotalPages]" HorzAlign="Right" Font="Arial, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

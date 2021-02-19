@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report DoublePass="true" ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="09/04/2020 16:34:02" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+ 
+  public class ReportScript
+  {
+  }
+}
+</ScriptText>
+  <Styles>
+    <Style Name="Baslik" Fill.Color="LightSteelBlue"/>
+    <Style Name="EvenRows" Fill.Color="AntiqueWhite"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tl81Wn1sByiZ8BpmRi3BQE1jGcq0gIpYtYaLRUvLhEY/+NLu0iFTA32JzJlG0UxgjsQY8YogEWEYoCrSNG9BZIvdwip8GirZ+oFzTXCArpKKdDwEdoZHeRyUmcuqsg9O/HMycL7apB7h63x70gl5sD5plCv+wzdmV/wWS7Hcx8Xo">
+      <TableDataSource Name="Table" Alias="YillikRapor" DataType="System.Int32" Enabled="true" SelectCommand="exec YillikRapor_SP @Yil">
+        <Column Name="DagitimSirketiAdi" DataType="System.String"/>
+        <Column Name="Islemde" DataType="System.Int32"/>
+        <Column Name="Sonuclandi" DataType="System.Int32"/>
+        <Column Name="DagitimSirketiId" DataType="System.Guid"/>
+        <Column Name="Column1" Alias="Toplam" DataType="System.Int32" Calculated="true" Expression="[YillikRapor.Sonuclandi]+[YillikRapor.Islemde]"/>
+        <Column Name="YuzdeZamanindaSonuclandi" DataType="System.Int32" PropName="Column2" Calculated="true" Expression="[YillikRapor.ZamanındaCozumlendi]*100/ToInt32(IIf([YillikRapor.Toplam]&gt;0,[YillikRapor.Toplam],1))"/>
+        <Column Name="YuzdeTopZamanindaSonuclandi" Enabled="false" DataType="System.Int32" PropName="Column2" Calculated="true" Expression=""/>
+        <Column Name="YuzdeIslemde" DataType="System.Int32" PropName="Column2" Calculated="true" Expression="[YillikRapor.Islemde]*100/ToInt32(IIf([YillikRapor.Toplam]&gt;0,[YillikRapor.Toplam],1))"/>
+        <Column Name="YuzdeZamanindaSonuclanmadi" DataType="System.Int32" PropName="Column2" Calculated="true" Expression="[YillikRapor.ZamanındaCozumlenmedi]*100/ToInt32(IIf([YillikRapor.Toplam]&gt;0,[YillikRapor.Toplam],1))"/>
+        <Column Name="ZamanındaCozumlendi" DataType="System.Int32"/>
+        <Column Name="ZamanındaCozumlenmedi" DataType="System.Int32"/>
+        <CommandParameter Name="Yil" DataType="8" Expression="[Yil]" DefaultValue="1900"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Table1_Table" ParentDataSource="null" ChildDataSource="Table" ParentColumns="ilceId" ChildColumns="ilceId" Enabled="true"/>
+    <Parameter Name="Yil" DataType="System.Int32" Expression="2020"/>
+    <Total Name="GenelToplamZamaninda" Expression="[YillikRapor.ZamanındaCozumlendi]" Evaluator="Data1"/>
+    <Total Name="GenelToplam" Expression="[YillikRapor.Toplam]" Evaluator="Data1"/>
+    <Total Name="ToplamZamanindaSonuclanmadi" Expression="[YillikRapor.ZamanındaCozumlenmedi]" Evaluator="Data1"/>
+    <Total Name="IslemToplam" Expression="[YillikRapor.Islemde]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" LeftMargin="1" TopMargin="0" RightMargin="1" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="786.24" Height="56.7">
+      <TextObject Name="Text1" Left="-359.1" Top="18.9" Width="1493.1" Height="18.9" Text="YILLIK RAPOR" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Top="37.8" Width="207.9" Height="18.9" Text="Yıl : [Yil]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="689.85" Top="18.9" Width="94.5" Height="18.9" Text="[Substring(ToString([Date]),0,10)]" HorzAlign="Right"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="786.24" Height="68.04" Guides="0">
+      <TextObject Name="Text5" Width="217.35" Height="68.04" Border.Lines="All" Border.Color="White" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Şirket Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text9" Left="217.35" Width="141.75" Height="68.04" Border.Lines="All" Border.Color="White" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="30 Gün İçerisinde Cevap Verilen Başvuru Sayısı" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text11" Left="359.1" Width="160.65" Height="68.04" Border.Lines="All" Border.Color="White" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="30 Gün İçerisinde Cevap Verilmeyen Başvuru Sayısı	&#13;&#10;" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text12" Left="699.3" Width="85.05" Height="68.04" Border.Lines="All" Border.Color="White" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text54" Left="519.75" Width="179.55" Height="68.04" Border.Lines="All" Border.Color="White" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="45 Gün İçerisinde Cevap Verilmeyen ve Sistem Tarafından Kapatılan Başvuru Sayısı	&#13;&#10;" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="132.74" Width="786.24" Height="18.9" EvenStyle="EvenRows" DataSource="Table" ParentIdColumn="OzetRapor.ilceId">
+      <TextObject Name="Text2" Width="217.35" Height="18.9" Border.Lines="All" Text="[YillikRapor.DagitimSirketiAdi]"/>
+      <TextObject Name="Text3" Left="217.35" Width="85.05" Height="18.9" Border.Lines="All" Text="[YillikRapor.ZamanındaCozumlendi]" Font="Arial, 9pt"/>
+      <TextObject Name="Text4" Left="519.75" Width="122.85" Height="18.9" Border.Lines="All" Text="[YillikRapor.ZamanındaCozumlenmedi]" Font="Arial, 9pt"/>
+      <TextObject Name="Text6" Left="699.3" Width="85.05" Height="18.9" Border.Lines="All" Text="[YillikRapor.Toplam]" HorzAlign="Right" Font="Arial, 9pt"/>
+      <TextObject Name="Text13" Left="359.1" Width="113.4" Height="18.9" Border.Lines="All" Text="[YillikRapor.Islemde]" Font="Arial, 9pt"/>
+      <TextObject Name="Text15" Left="302.4" Width="56.7" Height="18.9" Border.Lines="All" Text="[YillikRapor.YuzdeZamanindaSonuclandi]%" Font="Arial, 9pt"/>
+      <TextObject Name="Text17" Left="472.5" Width="47.25" Height="18.9" Border.Lines="All" Text="[YillikRapor.YuzdeIslemde]%" Font="Arial, 9pt"/>
+      <TextObject Name="Text18" Left="642.6" Width="56.7" Height="18.9" Border.Lines="All" Text="[YillikRapor.YuzdeZamanindaSonuclanmadi]%" Font="Arial, 9pt"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="155.64" Width="786.24" Height="18.9">
+      <TextObject Name="Text47" Width="217.35" Height="18.9" Border.Lines="All" Text="Toplam" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text52" Left="699.3" Width="85.05" Height="18.9" Border.Lines="All" Text="[GenelToplam]" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text51" Left="217.35" Width="85.05" Height="18.9" Border.Lines="All" Text="[GenelToplamZamaninda]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="519.75" Width="122.85" Height="18.9" Border.Lines="All" Text="[ToplamZamanindaSonuclanmadi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="359.1" Width="113.4" Height="18.9" Border.Lines="All" Text="[IslemToplam]" Font="Arial, 9pt"/>
+      <TextObject Name="Text16" Left="302.4" Width="56.7" Height="18.9" Border.Lines="All" Text="[ToInt32([GenelToplamZamaninda])*100/ToInt32(IIf([GenelToplam]&gt;0,[GenelToplam],1))]%" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text55" Left="472.5" Width="47.25" Height="18.9" Border.Lines="All" Text="[ToInt32([IslemToplam])*100/ToInt32(IIf([GenelToplam]&gt;0,[GenelToplam],1))]%" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text56" Left="642.6" Width="56.7" Height="18.9" Border.Lines="All" Text="[ToInt32([ToplamZamanindaSonuclanmadi])*100/ToInt32(IIf([GenelToplam]&gt;0,[GenelToplam],1))]%" Font="Arial, 9pt, style=Bold"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="178.54" Width="786.24" Height="18.9">
+      <TextObject Name="Text53" Left="633.15" Width="141.75" Height="18.9" Text="[Page]/[TotalPages]" HorzAlign="Right" Font="Arial, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report StartReportEvent="_StartReport" ReportInfo.Created="04/10/2011 07:07:18" ReportInfo.Modified="01/08/2020 15:42:59" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    private void _StartReport(object sender, EventArgs e)
+    {
+
+    }
+  }
+}</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqiTpLtvmgTJbV++pU1y3UbnzGNTmCrrFxgumx4+dtldn16tTmwZkhlyZmyvgJ8Shnyh9oEidOowIGV9TywrsDbkiJhsldTIxcz1gDaBWKqdSdlVCeZVRRlSuMwoea3+p4SYtuWsHv+TOeh+Gv4u9fBCG9V4av5599X2AKSMSmrBEDl3HwRXCbbAawib4U4G792Whh/Z9/60/xqdcyiKDlhC/Y8SKX80q39EWGTsBnulIHBelloqBoJN6VopL+HK9X">
+      <TableDataSource Name="Table" Alias="Q" DataType="System.Int32" Enabled="true" SelectCommand="SELECT * FROM Ilce WHERE SehirId = @PrmSehirId">
+        <Column Name="Id" DataType="System.Guid"/>
+        <Column Name="BaseId" DataType="System.Int32"/>
+        <Column Name="SehirId" DataType="System.Guid"/>
+        <Column Name="IlceAdi" DataType="System.String"/>
+        <Column Name="MerkezIlce" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="Durum" DataType="System.String"/>
+        <Column Name="EklemeTarihi" DataType="System.DateTime"/>
+        <Column Name="EkleyenKullanici" DataType="System.Guid"/>
+        <CommandParameter Name="PrmSehirId" DataType="22" Expression="[SehirId]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="SehirId" DataType="System.String" Expression="14A25DA4-95F0-438C-B683-00D26CFE4CF7"/>
+  </Dictionary>
+  <ReportPage Name="Page1" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="49.14">
+      <TextObject Name="Text1" Left="64.26" Top="22.68" Width="257.04" Height="26.46" Text="İLÇELER"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="53.14" Width="718.2" Height="37.8" DataSource="Table">
+      <TextObject Name="Text2" Left="56.7" Top="11.34" Width="491.4" Height="18.9" Text="[Q.IlceAdi]"/>
+    </DataBand>
+  </ReportPage>
+</Report>

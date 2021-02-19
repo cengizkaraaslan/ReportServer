@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="12/14/2020 13:10:00" ReportInfo.CreatorVersion="1.2.47.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tl81Wn1sByiZ8BpmRi3BQE1jGcq0gIpYtYaLRUvLhEY/+NLu0iFTA32JzJlG0UxgjsQY8YogEWEYoCrSNG9BZIvdwip8GirZ+oFzTXCArpKKdDwEdoZHeRyUmcuqsg9O/HMycL7apB7h63x70gl5sD7WzAQ3nrslGRP0+qFEvgJD">
+      <TableDataSource Name="Table" Alias="GenelRapor" DataType="System.Int32" Enabled="true" SelectCommand="exec GenelRapor_SP @DagitimSirketiId,@ilId,@ilceId,@MahalleId,@SikayetNo,@SikayetDurum,@KayitOrtami,@KayitBasTarih,@KayitBitTarih,@MuhletBasTarih,@MuhletBitTarih,@SonlandirmaBasTarih,@SonlandirmaBitTarih">
+        <Column Name="SikayetNo" DataType="System.Decimal" Format="Number"/>
+        <Column Name="DagitimSirketiAdi" DataType="System.String"/>
+        <Column Name="ilAdi" DataType="System.String"/>
+        <Column Name="ilceAdi" DataType="System.String"/>
+        <Column Name="MahalleAdi" DataType="System.String"/>
+        <Column Name="SahisId" DataType="System.Guid"/>
+        <Column Name="AdSoyad" DataType="System.String"/>
+        <Column Name="TuzelAd" DataType="System.String"/>
+        <Column Name="VergiDairesi" DataType="System.String"/>
+        <Column Name="Adres" DataType="System.String"/>
+        <Column Name="Telefon" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="SikayetAciklama" DataType="System.String"/>
+        <Column Name="KayitTarih" DataType="System.DateTime"/>
+        <Column Name="MuhletTarih" DataType="System.DateTime"/>
+        <Column Name="SonucAciklama" DataType="System.String"/>
+        <Column Name="SonuclandirmaTarihi" DataType="System.DateTime"/>
+        <Column Name="SonucDurum" DataType="System.String"/>
+        <Column Name="SikayetDurum" DataType="System.String"/>
+        <CommandParameter Name="DagitimSirketiId" DataType="14" Size="50" Expression="[DagitimSirketiId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="ilId" DataType="14" Size="50" Expression="[ilId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="ilceId" DataType="14" Size="50" Expression="[ilceId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="MahalleId" DataType="14" Size="50" Expression="[MahalleId]" DefaultValue="00000000-0000-0000-0000-000000000000"/>
+        <CommandParameter Name="SikayetNo" DataType="5" Expression="[SikayetNo]" DefaultValue="-1"/>
+        <CommandParameter Name="SikayetDurum" DataType="8" Expression="[SikayetDurum]" DefaultValue="-1"/>
+        <CommandParameter Name="KayitOrtami" DataType="8" Expression="[KayitOrtami]" DefaultValue="-1"/>
+        <CommandParameter Name="KayitBasTarih" DataType="4" Expression="[KayitBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="KayitBitTarih" DataType="4" Expression="[KayitBitTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="MuhletBasTarih" DataType="4" Expression="[MuhletBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="MuhletBitTarih" DataType="4" Expression="[MuhletBitTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="SonlandirmaBasTarih" DataType="4" Expression="[SonlandirmaBasTarih]" DefaultValue="1900-01-01"/>
+        <CommandParameter Name="SonlandirmaBitTarih" DataType="4" Expression="[SonlandirmaBitTarih]" DefaultValue="1900-01-01"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="DagitimSirketiId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilceId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="MahalleId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="SikayetNo" DataType="System.Decimal" Expression="-1"/>
+    <Parameter Name="SikayetDurum" DataType="System.Int16" Expression="-1"/>
+    <Parameter Name="KayitOrtami" DataType="System.Int16" Expression="-1"/>
+    <Parameter Name="KayitBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="KayitBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="MuhletBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="MuhletBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="SonlandirmaBasTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Parameter Name="SonlandirmaBitTarih" DataType="System.DateTime" Expression="&quot;1.1.1900&quot;"/>
+    <Total Name="ToplamSayi" TotalType="Count" Evaluator="Data1" PrintOn="ReportSummary1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="480" PaperHeight="210" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="37.8">
+      <TextObject Name="Text1" Left="359.1" Top="9.45" Width="1171.8" Height="18.9" Text="GENEL RAPOR" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text39" Top="18.9" Width="302.4" Height="18.9" Text="Kayıt Tarihi :[KayitBasTarih]-[KayitBitTarih]" Font="Arial, 9pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1814.4" Height="56.7" Guides="0">
+      <TextObject Name="Text4" Top="18.9" Width="75.6" Height="37.8" Border.Lines="All" Text="Şikayet Numarası" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="75.6" Top="18.9" Width="113.4" Height="37.8" Border.Lines="All" Text="Şirket Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="189" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="İl Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="292.95" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="İlçe Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="396.9" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="Mahalle Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="500.85" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="Ad Soyad" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="604.8" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="Tüzel Ad" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="708.75" Top="18.9" Width="75.6" Height="37.8" Border.Lines="All" Text="Vergi Dairesi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="784.35" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="Adres" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="888.3" Top="18.9" Width="94.5" Height="37.8" Border.Lines="All" Text="Telefon" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="982.8" Top="18.9" Width="103.95" Height="37.8" Border.Lines="All" Text="Mail" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="1086.75" Top="18.9" Width="207.9" Height="37.8" Border.Lines="All" Text="Şikayet" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text16" Left="1294.65" Top="18.9" Width="75.6" Height="37.8" Border.Lines="All" Text="Kayıt Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text17" Left="1370.25" Top="18.9" Width="75.6" Height="37.8" Border.Lines="All" Text="Mühlet Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text18" Left="1445.85" Top="18.9" Width="113.4" Height="37.8" Border.Lines="All" Text="Sonuç Açıklama" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text19" Left="1559.25" Top="18.9" Width="75.6" Height="37.8" Border.Lines="All" Text="Sonuç Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text20" Left="1634.85" Top="18.9" Width="94.5" Height="37.8" Border.Lines="All" Text="Sonuç Durum" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text21" Left="1729.35" Top="18.9" Width="83.16" Height="37.8" Border.Lines="All" Text="Durum" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text38" Left="1710.45" Width="122.85" Height="18.9" Text="[Page]/[TotalPages#]" Font="Arial, 8pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="102.5" Width="1814.4" Height="28.35" CanGrow="true" CanShrink="true" DataSource="Table">
+      <TextObject Name="Text2" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SikayetNo]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" WordWrap="false" Font="Arial, 8pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text3" Left="75.6" Width="113.4" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.DagitimSirketiAdi]" Font="Arial, 8pt"/>
+      <TextObject Name="Text22" Left="189" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.ilAdi]" Font="Arial, 8pt"/>
+      <TextObject Name="Text23" Left="292.95" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.ilceAdi]" Font="Arial, 8pt"/>
+      <TextObject Name="Text24" Left="396.9" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.MahalleAdi]" Font="Arial, 8pt"/>
+      <TextObject Name="Text25" Left="500.85" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.AdSoyad]" Font="Arial, 8pt"/>
+      <TextObject Name="Text26" Left="604.8" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.TuzelAd]" Font="Arial, 8pt"/>
+      <TextObject Name="Text27" Left="708.75" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.VergiDairesi]" Font="Arial, 8pt"/>
+      <TextObject Name="Text28" Left="784.35" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.Adres]" Font="Arial, 8pt"/>
+      <TextObject Name="Text29" Left="888.3" Width="94.5" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.Telefon]" Font="Arial, 8pt"/>
+      <TextObject Name="Text30" Left="982.8" Width="103.95" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.Email]" Font="Arial, 8pt"/>
+      <TextObject Name="Text31" Left="1086.75" Width="207.9" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SikayetAciklama]" Font="Arial, 8pt"/>
+      <TextObject Name="Text32" Left="1294.65" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.KayitTarih]" Format="Date" Format.Format="d" Font="Arial, 8pt"/>
+      <TextObject Name="Text33" Left="1370.25" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.MuhletTarih]" Format="Date" Format.Format="d" Font="Arial, 8pt"/>
+      <TextObject Name="Text34" Left="1445.85" Width="113.4" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SonucAciklama]" Font="Arial, 8pt"/>
+      <TextObject Name="Text35" Left="1559.25" Width="75.6" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SonuclandirmaTarihi]" Format="Date" Format.Format="d" Font="Arial, 8pt"/>
+      <TextObject Name="Text36" Left="1634.85" Width="94.5" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SonucDurum]" Font="Arial, 8pt"/>
+      <TextObject Name="Text37" Left="1729.35" Width="85.05" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[GenelRapor.SikayetDurum]" Font="Arial, 8pt"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="134.85" Width="1814.4" Height="18.9">
+      <TextObject Name="Text40" Width="75.6" Height="18.9" Border.Lines="All" Text="Toplam" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text41" Left="75.6" Width="1738.8" Height="18.9" Border.Lines="All" Text="[ToplamSayi]" Font="Arial, 10pt, style=Bold"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

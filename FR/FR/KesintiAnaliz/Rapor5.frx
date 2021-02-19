@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="12/02/2020 10:31:07" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Text7_BeforePrint(object sender, EventArgs e)
+    {
+     
+        
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tsBA0tGOwLb5+4rd8SpCoC/zc5K/Sq9HOYAChaXZAtxTm2wrOaHQ5DhDn/cTC0xrtbMcIhQBnx7FObgb9yf2aFgEm45EHmD+XBVX+9fH8mi/KCZpDbtyBWMu1jn2+KhQCvlRcNWYdwzVyflQui+XEkaC9UGORlEqbiNLEdy0+f/1">
+      <TableDataSource Name="Table" Alias="Q" DataType="System.Int32" Enabled="true" SelectCommand="select r.KodNo,r.Kademe,i.IlAdi,ii.IlceAdi,r.SebekeUnsuru,r.KaynaginaGore,r.SureyeGore,r.SebebeGore,r.BildirimeGore,r.BaslamaTarihi,r.BitisTarihi,r.KesintiSuresi,r.ImarAlaniIciOG,r.ImarAlaniIciAG,r.ImarAlaniDisiOG,r.ImarAlaniDisiAG,r.KullaniciSayisi,r.GunlukOran,r.GunSayisi&#13;&#10;from Rapor_5  r&#13;&#10;inner join DagitimSirketi d on d.Id=r.SirketId&#13;&#10;inner join Il i on i.Id=r.IlId&#13;&#10;inner join Ilce ii on ii.Id=r.IlceId&#13;&#10;where&#13;&#10;( i.Id= @ilId or  @ilId='00000000-0000-0000-0000-000000000000') and  ( ii.Id=@ilceId or  @ilceId='00000000-0000-0000-0000-000000000000') and  &#13;&#10;(( r.sebekeUnsuru LIKE  '%'+@sebekeUnsuru+'%' ) or @sebekeUnsuru='xxx')&#13;&#10; and ( d.Id=@dagitimSirketiId or  @dagitimSirketiId='00000000-0000-0000-0000-000000000000')&#13;&#10; and ((r.gunlukOran LIKE  '%'+@gunlukOran+'%' ) or @gunlukOran='-1')&#13;&#10; and (( r.BaslamaTarihi&gt;=@baslamaTarihi or @baslamaTarihi='01.01.1900')&#13;&#10;or ( r.BitisTarihi&lt;=@bitisTarihi or  @bitisTarihi='01.01.1900'))">
+        <Column Name="IlId" Enabled="false" DataType="System.String" PropName="Column" Calculated="true" Expression=""/>
+        <Column Name="IlceId" Enabled="false" DataType="System.String" PropName="Column1" Calculated="true" Expression=""/>
+        <Column Name="KodNo" DataType="System.String"/>
+        <Column Name="Kademe" DataType="System.String"/>
+        <Column Name="IlAdi" DataType="System.String"/>
+        <Column Name="IlceAdi" DataType="System.String"/>
+        <Column Name="SebekeUnsuru" DataType="System.String"/>
+        <Column Name="KaynaginaGore" DataType="System.String"/>
+        <Column Name="SureyeGore" DataType="System.String"/>
+        <Column Name="SebebeGore" DataType="System.String"/>
+        <Column Name="BildirimeGore" DataType="System.String"/>
+        <Column Name="BaslamaTarihi" DataType="System.DateTime"/>
+        <Column Name="BitisTarihi" DataType="System.DateTime"/>
+        <Column Name="KesintiSuresi" DataType="System.Decimal"/>
+        <Column Name="ImarAlaniIciOG" DataType="System.Int32"/>
+        <Column Name="ImarAlaniIciAG" DataType="System.Int32"/>
+        <Column Name="ImarAlaniDisiOG" DataType="System.Int32"/>
+        <Column Name="ImarAlaniDisiAG" DataType="System.Int32"/>
+        <Column Name="KullaniciSayisi" DataType="System.Decimal"/>
+        <Column Name="GunlukOran" DataType="System.Decimal"/>
+        <Column Name="GunSayisi" DataType="System.Int32"/>
+        <CommandParameter Name="ilId" DataType="22" Expression="[ilId]"/>
+        <CommandParameter Name="ilceId" DataType="22" Expression="[ilceId]"/>
+        <CommandParameter Name="sebekeUnsuru" DataType="22" Expression="[sebekeUnsuru]"/>
+        <CommandParameter Name="baslamaTarihi" DataType="22" Expression="[baslamaTarihi]"/>
+        <CommandParameter Name="bitisTarihi" DataType="22" Expression="[bitisTarihi]"/>
+        <CommandParameter Name="gunlukOran" DataType="22" Expression="[gunlukOran]"/>
+        <CommandParameter Name="dagitimSirketiId" DataType="22" Expression="[dagitimSirketiId]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="ilId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="ilceId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+    <Parameter Name="sebekeUnsuru" DataType="System.String" Expression="&quot;&quot;"/>
+    <Parameter Name="gunlukOran" DataType="System.String" Expression="&quot;&quot;"/>
+    <Parameter Name="baslamaTarihi" DataType="System.String" Expression="&quot;&quot;"/>
+    <Parameter Name="bitisTarihi" DataType="System.String" Expression="&quot;&quot;"/>
+    <Parameter Name="dagitimSirketiId" DataType="System.String" Expression="&quot;00000000-0000-0000-0000-000000000000&quot;"/>
+  </Dictionary>
+  <ReportPage Name="Rapor5" PaperWidth="220" PaperHeight="480" LeftMargin="1" TopMargin="0" RightMargin="1" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="824.04" Height="37.8">
+      <TextObject Name="Text1" Left="-328.86" Top="13.23" Width="1493.1" Height="18.9" Text="Kullanıcı Sayısı Tespiti" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="42.01" Width="824.04" Height="86.94" Guides="0,86.94">
+      <TextObject Name="Text5" Width="35.91" Height="86.94" Border.Lines="All" Fill.Color="Yellow" Text="Kod No" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="37.8" Width="28.35" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Kademe" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text24" Left="68.04" Width="32.13" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İl" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="128.52" Width="41.58" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Şebeke Unsuru" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="102.06" Width="30.24" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İlçe" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text28" Left="170.1" Width="52.92" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Kaynağa Göre" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text27" Left="223.02" Width="45.36" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Süreye Göre" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text29" Left="268.38" Width="41.58" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Sebebe Göre" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text30" Left="309.96" Width="49.14" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Bildirime Göre" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text31" Left="359.1" Width="52.92" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Kesintinin Başlama&#13;&#10;Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="412.02" Width="41.58" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Kesintinin Bitiş&#13;&#10;Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="491.4" Width="52.92" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İmar Alanı İçi OG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="536.76" Width="45.36" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İmar Alanı İçi AG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text36" Left="721.98" Width="41.58" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Günlük Oran" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="453.6" Width="41.58" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Kesinti Süresi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="582.12" Width="52.92" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İmar Alanı Dışı OG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="631.26" Width="45.36" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="İmar Alanı Dışı AG" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text35" Left="676.62" Width="45.36" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Toplam Kullanıcı Sayısı&#13;&#10;" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text37" Left="763.56" Width="52.92" Height="86.94" Border.Lines="Right, Top, Bottom" Fill.Color="Yellow" Text="Gün Sayısı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data" Top="133.16" Width="824.04" Height="876.96" CanGrow="true" CanShrink="true" DataSource="Table" RowCount="1000" KeepTogether="true" KeepDetail="true">
+      <TextObject Name="Text2" Width="34.02" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.KodNo]"/>
+      <TextObject Name="Text3" Left="34.02" Width="30.24" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.Kademe]"/>
+      <TextObject Name="Text4" Left="64.26" Width="37.8" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.IlAdi]"/>
+      <TextObject Name="Text6" Left="102.06" Width="30.24" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.IlceAdi]"/>
+      <TextObject Name="Text7" Left="132.3" Width="37.8" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.SebekeUnsuru]"/>
+      <TextObject Name="Text16" Left="170.1" Width="52.92" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.KaynaginaGore]"/>
+      <TextObject Name="Text17" Left="223.02" Width="41.58" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.SureyeGore]"/>
+      <TextObject Name="Text18" Left="264.6" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.SebebeGore]"/>
+      <TextObject Name="Text19" Left="309.96" Width="49.14" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.BildirimeGore]"/>
+      <TextObject Name="Text20" Left="359.1" Width="52.92" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.BaslamaTarihi]" Format="Date" Format.Format="d"/>
+      <TextObject Name="Text21" Left="412.02" Width="41.58" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.BitisTarihi]" Format="Date" Format.Format="d"/>
+      <TextObject Name="Text22" Left="453.6" Width="41.58" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.KesintiSuresi]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="495.18" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.ImarAlaniIciOG]"/>
+      <TextObject Name="Text32" Left="540.54" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.ImarAlaniIciAG]"/>
+      <TextObject Name="Text33" Left="585.9" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.ImarAlaniDisiOG]"/>
+      <TextObject Name="Text34" Left="631.26" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.ImarAlaniDisiAG]"/>
+      <TextObject Name="Text38" Left="676.62" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.KullaniciSayisi]"/>
+      <TextObject Name="Text39" Left="721.98" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.GunlukOran]"/>
+      <TextObject Name="Text40" Left="767.34" Width="45.36" Height="18.9" Border.Lines="Right, Top, Bottom" Text="[Q.GunSayisi]"/>
+    </DataBand>
+  </ReportPage>
+</Report>

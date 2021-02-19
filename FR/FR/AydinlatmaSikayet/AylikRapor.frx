@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report DoublePass="true" ReportInfo.Created="05/21/2020 16:37:57" ReportInfo.Modified="09/04/2020 14:36:38" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+ 
+  public class ReportScript
+  {
+  }
+}
+</ScriptText>
+  <Styles>
+    <Style Name="Baslik" Fill.Color="LightSteelBlue"/>
+    <Style Name="EvenRows" Fill.Color="AntiqueWhite"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tl81Wn1sByiZ8BpmRi3BQE1jGcq0gIpYtYaLRUvLhEY/+NLu0iFTA32JzJlG0UxgjsQY8YogEWEYoCrSNG9BZIvdwip8GirZ+oFzTXCArpKKdDwEdoZHeRyUmcuqsg9O/HMycL7apB7h63x70gl5sD4BP7292l/oZ+1X+7KLlcly">
+      <TableDataSource Name="Table" Alias="AylikRapor" DataType="System.Int32" Enabled="true" SelectCommand="exec AylikRapor_SP @AyBaslangic,@AyBitis,@Yil">
+        <Column Name="DagitimSirketiAdi" DataType="System.String"/>
+        <Column Name="Islemde" DataType="System.Int32"/>
+        <Column Name="Sonuclandi" DataType="System.Int32"/>
+        <Column Name="DagitimSirketiId" DataType="System.Guid"/>
+        <Column Name="Column1" Alias="Toplam" DataType="System.Int32" Calculated="true" Expression="[AylikRapor.ZamanındaCozumlendi]+[AylikRapor.ZamanındaCozumlenmedi]"/>
+        <Column Name="ZamanındaCozumlendi" DataType="System.Int32"/>
+        <Column Name="ZamanındaCozumlenmedi" DataType="System.Int32"/>
+        <CommandParameter Name="AyBaslangic" DataType="8" Expression="[AyBaslangic]" DefaultValue="-1"/>
+        <CommandParameter Name="AyBitis" DataType="8" Expression="[AyBitis]" DefaultValue="-1"/>
+        <CommandParameter Name="Yil" DataType="8" Expression="[Yil]" DefaultValue="1900"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Table1_Table" ParentDataSource="null" ChildDataSource="Table" ParentColumns="ilceId" ChildColumns="ilceId" Enabled="true"/>
+    <Parameter Name="Yil" DataType="System.Int32" Expression="1900"/>
+    <Parameter Name="AyBaslangic" DataType="System.Int32" Expression="-1"/>
+    <Parameter Name="AyBitis" DataType="System.Int32" Expression="-1"/>
+    <Total Name="GenelToplamZamaninda" Expression="[AylikRapor.ZamanındaCozumlendi]" Evaluator="Data1"/>
+    <Total Name="GenelToplam" Expression="[AylikRapor.Toplam]" Evaluator="Data1"/>
+    <Total Name="ToplamZamanindaSonuclanmadi" Expression="[AylikRapor.ZamanındaCozumlenmedi]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" LeftMargin="1" TopMargin="0" RightMargin="1" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="786.24" Height="47.25">
+      <TextObject Name="Text1" Left="-349.65" Top="18.9" Width="1493.1" Height="18.9" Text="AYLIK RAPOR" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Top="28.35" Width="207.9" Height="18.9" Text="[AyBaslangic]-[AyBitis]/[Yil]"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="786.24" Height="37.8" Guides="0">
+      <TextObject Name="Text5" Width="274.05" Height="37.8" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Şirket Adı" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text9" Left="274.05" Width="198.45" Height="37.8" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Zamanında Çözümlendi " VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text11" Left="472.5" Width="226.8" Height="37.8" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Zamanında Çözümlenmedi" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text12" Left="699.3" Width="85.05" Height="37.8" Fill="Glass" Fill.Color="Peru" Fill.Blend="0.16" Fill.Hatch="true" Text="Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="93.05" Width="786.24" Height="18.9" EvenStyle="EvenRows" DataSource="Table" ParentIdColumn="OzetRapor.ilceId">
+      <TextObject Name="Text2" Width="274.05" Height="18.9" Text="[AylikRapor.DagitimSirketiAdi]"/>
+      <TextObject Name="Text3" Left="274.05" Width="198.45" Height="18.9" Text="[AylikRapor.ZamanındaCozumlendi]"/>
+      <TextObject Name="Text4" Left="472.5" Width="226.8" Height="18.9" Text="[AylikRapor.ZamanındaCozumlenmedi]"/>
+      <TextObject Name="Text6" Left="699.3" Width="85.05" Height="18.9" Text="[AylikRapor.Toplam]"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="115.95" Width="786.24" Height="18.9">
+      <TextObject Name="Text47" Width="274.05" Height="18.9" Text="Toplam" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text52" Left="699.3" Width="85.05" Height="18.9" Text="[GenelToplam]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text51" Left="274.05" Width="198.45" Height="18.9" Text="[GenelToplamZamaninda]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="472.5" Width="226.8" Height="18.9" Text="[ToplamZamanindaSonuclanmadi]" Font="Arial, 10pt, style=Bold"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="138.85" Width="786.24" Height="18.9">
+      <TextObject Name="Text53" Left="633.15" Width="141.75" Height="18.9" Text="[Page]/[TotalPages]" HorzAlign="Right" Font="Arial, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

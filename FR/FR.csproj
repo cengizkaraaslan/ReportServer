@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastReport.OpenSource.Data.MsSql" Version="2021.1.7" />
+    <PackageReference Include="FastReport.ReportBuilder" Version="2021.1.0" />
+    <PackageReference Include="JxNet.Extensions.FastReport" Version="1.0.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="TowerSoft.HtmlToExcel" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FastReport">
+      <HintPath>bin\FastReport.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FR\" />
+  </ItemGroup>
+
+</Project>

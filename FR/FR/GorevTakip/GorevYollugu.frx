@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ReportInfo.Created="04/10/2011 07:07:18" ReportInfo.Modified="07/09/2020 09:21:07" ReportInfo.CreatorVersion="1.2.47.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+  }
+}</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqQ0jf99o4YUKmXZ8vR/Q5LxrfetXMtO9jSdYwwXIvVjYvKtzVGMv9X7cyMng5loO4ZUI+vYQsWnl+BgYkT7o+tuYbl0wmOGFSyyPVOg4C5XVhsaLA8ZEz5/p8sMY2pY5sF83eqcLVxFnIVrL/3XDE+q1pu+TTvnGhVzSNb56bf/dlVVAbEiZ47oBi3wo+7+4KeiPm/mUdKakorblE5LRoGQB6R/CPFdc7mTUi+WIRAulh+RQoDCm3j2bc7ScSae3H">
+      <TableDataSource Name="Table" Alias="Q" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;                CONVERT(VARCHAR(50), GorevEmri.Id) AS Id,&#13;&#10;                Organizasyon.BirimAdi AS Kurumu,&#13;&#10;                Personel.Ad + ' ' + Personel.Soyad AS AdSoyad, &#13;&#10;                Parametre.ParametreAdi AS Gorevi,&#13;&#10;                GorevEmri.GorevTumNo As GorevNumarasi,&#13;&#10;                GorevEmri.GorevKonusu As GorevNedeni,&#13;&#10;                Personel.Derece as KadroDerecesi,&#13;&#10;                CONVERT(VARCHAR(10), GorevEmri.GorevBaslangicTarihi, 104) AS GorevBaslangicTarihi,&#13;&#10;                CONVERT(VARCHAR(10), GorevEmri.GidisTarihi, 104) as GidisTarihi,&#13;&#10;                GorevEmri.Gundelik As Gundelik,&#13;&#10;                GorevEmri.HakEdilenHarcirah As HakEdilenHarcirah,&#13;&#10;                GorevEmri.GunSayisi As GunSayisi,&#13;&#10;	(Select isnull(sum(isnull(GorevEmriUlasim.tutar,0)),0) from GorevEmriUlasim where GorevEmriUlasim.GorevEmriId = GorevEmri.Id and GorevEmriUlasim.Durum != 'S') As UlasimToplam,&#13;&#10;	(Select isnull(sum(isnull(GorevEmriKonaklama.OdenecekTutar,0)),0) from GorevEmriKonaklama where GorevEmriKonaklama.GorevEmriId = GorevEmri.Id and GorevEmriKonaklama.Durum != 'S') As KonaklamaToplam,&#13;&#10;	(Select isnull(sum(isnull(GorevEmriAvans.tutar,0)),0) from GorevEmriAvans where GorevEmriAvans.GorevEmriId = GorevEmri.Id and GorevEmriAvans.AvansDurumuId = '43AEC85C-A1E6-467F-8F05-4EA30B56047E' and GorevEmriAvans.Durum != 'S') As AvansToplam&#13;&#10;FROM&#13;&#10;                GorevEmri&#13;&#10;                LEFT JOIN Personel ON GorevEmri.PersonelId = Personel.Id&#13;&#10;                LEFT JOIN Organizasyon ON Personel.OrganizasyonId = Organizasyon.Id&#13;&#10;                LEFT JOIN Parametre ON Personel.UnvanId = Parametre.Id&#13;&#10;WHERE&#13;&#10;           	  GorevEmri.GorevYolluguId = @prmId">
+        <Column Name="Id" DataType="System.String"/>
+        <Column Name="Kurumu" DataType="System.String"/>
+        <Column Name="AdSoyad" DataType="System.String"/>
+        <Column Name="Gorevi" DataType="System.String"/>
+        <Column Name="GorevNumarasi" DataType="System.String"/>
+        <Column Name="GorevNedeni" DataType="System.String"/>
+        <Column Name="KadroDerecesi" DataType="System.Int32"/>
+        <Column Name="GorevBaslangicTarihi" DataType="System.String"/>
+        <Column Name="GidisTarihi" DataType="System.String"/>
+        <Column Name="Gundelik" DataType="System.Decimal"/>
+        <Column Name="HakEdilenHarcirah" DataType="System.Decimal"/>
+        <Column Name="GunSayisi" DataType="System.Int32"/>
+        <Column Name="UlasimToplam" DataType="System.Decimal"/>
+        <Column Name="KonaklamaToplam" DataType="System.Decimal"/>
+        <Column Name="AvansToplam" DataType="System.Decimal"/>
+        <CommandParameter Name="PrmId" DataType="22" Expression="[Id]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="QUlasimGiderleri" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;	GorevEmriUlasim.BelgeTarihi As BelgeTarihi,&#13;&#10;	GorevEmriUlasim.BelgeNo As BelgeNumarasi,&#13;&#10;	Parametre.ParametreAdi As TasitCinsi,&#13;&#10;	GorevEmriUlasim.Tutar As BelgeTutari&#13;&#10;FROM&#13;&#10;	GorevEmriUlasim&#13;&#10;	LEFT JOIN GorevEmri on GorevEmriUlasim.GorevEmriId=GorevEmri.Id&#13;&#10;	LEFT JOIN Parametre on GorevEmriUlasim.TasitId=Parametre.Id&#13;&#10;WHERE&#13;&#10;	CONVERT(VARCHAR(50), GorevEmriUlasim.GorevEmriId) = @PrmGorevEmriId">
+        <Column Name="BelgeTarihi" DataType="System.DateTime"/>
+        <Column Name="BelgeNumarasi" DataType="System.String"/>
+        <Column Name="TasitCinsi" DataType="System.String"/>
+        <Column Name="BelgeTutari" DataType="System.Decimal"/>
+        <CommandParameter Name="PrmGorevEmriId" DataType="22" Expression="[Q.Id]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" Alias="QKonaklamaGiderleri" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;	GorevEmriKonaklama.KonaklamaYeri As KonaklamaYeri,&#13;&#10;	GorevEmriKonaklama.BaslangicTarihi As BaslangicTarihi,&#13;&#10;	GorevEmriKonaklama.KonaklamaGunSayisi As KonaklamaGunSayisi,&#13;&#10;	GorevEmriKonaklama.BelgeTarihi As BelgeTarihi,&#13;&#10;	GorevEmriKonaklama.BelgeNo As BelgeNumarasi,&#13;&#10;	GorevEmriKonaklama.BelgeTutari As BelgeTutari,&#13;&#10;	GorevEmriKonaklama.OdenecekTutar As OdenecekTutar	&#13;&#10;FROM&#13;&#10;	GorevEmriKonaklama&#13;&#10;	LEFT JOIN GorevEmri on GorevEmriKonaklama.GorevEmriId=GorevEmri.Id&#13;&#10;where&#13;&#10;	CONVERT(VARCHAR(50), GorevEmriKonaklama.GorevEmriId) = @PrmGorevEmriId">
+        <Column Name="KonaklamaYeri" DataType="System.String"/>
+        <Column Name="BaslangicTarihi" DataType="System.DateTime"/>
+        <Column Name="KonaklamaGunSayisi" DataType="System.Int32"/>
+        <Column Name="BelgeTarihi" DataType="System.DateTime"/>
+        <Column Name="BelgeNumarasi" DataType="System.String"/>
+        <Column Name="BelgeTutari" DataType="System.Decimal"/>
+        <Column Name="OdenecekTutar" DataType="System.Decimal"/>
+        <CommandParameter Name="PrmGorevEmriId" DataType="22" Expression="[Q.Id]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" Alias="QAvans" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  &#13;&#10;	GorevEmriAvans.EklemeTarihi As EklemeTarihi,&#13;&#10;	GorevEmriAvans.Tutar As Tutar			&#13;&#10;FROM&#13;&#10;	GorevEmriAvans&#13;&#10;	LEFT JOIN GorevEmri on GorevEmriAvans.GorevEmriId=GorevEmri.Id&#13;&#10;where&#13;&#10;	CONVERT(VARCHAR(50), GorevEmriAvans.GorevEmriId) = @PrmGorevEmriId">
+        <Column Name="EklemeTarihi" DataType="System.DateTime"/>
+        <Column Name="Tutar" DataType="System.Decimal"/>
+        <CommandParameter Name="PrmGorevEmriId" DataType="22" Expression="[Q.Id]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="QAdresBilgileri" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;SehirNereden.SehirAdi as GorevYeriNereden,&#13;&#10;SehirNereye.SehirAdi + ' ' + Ilce.IlceAdi + ' ' + &#13;&#10;Case GorevEmriAdres.NereyeMahalleId &#13;&#10;when '00000000-0000-0000-0000-000000000000' then ''&#13;&#10;else KoyMahalle.KoyMahalleAdi end As GorevYeriNereye&#13;&#10;FROM&#13;&#10;GorevEmriAdres&#13;&#10;LEFT JOIN GorevEmri on GorevEmri.Id=GorevEmriAdres.GorevEmriId&#13;&#10;LEFT JOIN Sehir SehirNereden ON GorevEmri.NeredenSehirId = SehirNereden.Id &#13;&#10;LEFT JOIN Sehir SehirNereye ON GorevEmriAdres.NereyeSehirId = SehirNereye.Id &#13;&#10;LEFT JOIN Ilce  ON GorevEmriAdres.NereyeilceId = Ilce.Id &#13;&#10;LEFT JOIN KoyMahalle  ON GorevEmriAdres.NereyeMahalleId = KoyMahalle.Id &#13;&#10;WHERE&#13;&#10;CONVERT(VARCHAR(50), GorevEmriAdres.GorevEmriId) = @PrmGorevEmriId">
+        <Column Name="GorevYeriNereden" DataType="System.String"/>
+        <Column Name="GorevYeriNereye" DataType="System.String"/>
+        <CommandParameter Name="PrmGorevEmriId" DataType="22" Expression="[Q.Id]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="QBelge" DataType="System.Int32" Enabled="true" SelectCommand="select &#13;&#10;	Id,&#13;&#10;	'O' AS Tip&#13;&#10;from &#13;&#10;	GorevEmri&#13;&#10;where&#13;&#10;	Id = @PrmGorevEmriId&#13;&#10;	AND OlurBelgesi IS NOT NULL&#13;&#10;&#13;&#10;UNION ALL&#13;&#10;				&#13;&#10;select &#13;&#10;	Id,&#13;&#10;	'G' AS Tip&#13;&#10;from &#13;&#10;	GorevEmri&#13;&#10;where&#13;&#10;	Id = @PrmGorevEmriId&#13;&#10;	AND GorevlendirmeYazisi IS NOT NULL&#13;&#10;&#13;&#10;UNION ALL&#13;&#10;&#13;&#10;select &#13;&#10;	Id,&#13;&#10;	'K' AS Tip&#13;&#10;from &#13;&#10;	GorevEmriKonaklama&#13;&#10;where&#13;&#10;	GorevEmriId = @PrmGorevEmriId&#13;&#10;&#13;&#10;UNION ALL&#13;&#10;&#13;&#10;select &#13;&#10;	Id,&#13;&#10;	'U' AS Tip&#13;&#10;from &#13;&#10;	GorevEmriUlasim&#13;&#10;where&#13;&#10;	GorevEmriId = @PrmGorevEmriId">
+        <Column Name="Id" DataType="System.Guid"/>
+        <Column Name="Tip" DataType="System.String"/>
+        <CommandParameter Name="PrmGorevEmriId" DataType="12" Expression="[Q.Id]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="Id" DataType="System.String" Expression="&quot;2414F262-573B-4ABD-2BD2-08D811CB53FA&quot;"/>
+    <Total Name="TUlasimGiderleri" Expression="[QUlasimGiderleri.BelgeTutari]" Evaluator="Data6" PrintOn="GroupFooter5"/>
+    <Total Name="TKonaklamaGiderleri" Expression="[QKonaklamaGiderleri.OdenecekTutar]" Evaluator="Data7" PrintOn="GroupFooter6"/>
+    <Total Name="TAvans" Expression="[QAvans.Tutar]" Evaluator="Data8" PrintOn="GroupFooter7"/>
+  </Dictionary>
+  <ReportPage Name="Page1" FirstPageSource="15" OtherPagesSource="15">
+    <DataBand Name="Data5" Width="718.2" Height="440.37" DataSource="Table">
+      <TextObject Name="Text45" Top="279.72" Width="109.62" Height="37.8" Border.Lines="All" Text="Görev Yeri" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text46" Left="109.62" Top="279.72" Width="608.58" Height="37.8" Border.Lines="All" VertAlign="Center"/>
+      <TextObject Name="Text31" Top="241.92" Width="109.62" Height="37.8" Border.Lines="All" Text="Görev Nedeni" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Left="109.62" Top="241.92" Width="608.58" Height="37.8" Border.Lines="All" Text="[Q.GorevNedeni]" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="109.62" Top="204.12" Width="253.26" Height="37.8" Border.Lines="All" Text="[Q.Gorevi]" VertAlign="Center"/>
+      <TextObject Name="Text32" Top="204.12" Width="109.62" Height="37.8" Border.Lines="All" Text="Görevi&#13;&#10;" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text42" Left="362.88" Top="204.12" Width="98.28" Height="37.8" Border.Lines="All" Text="Görev Tarihi ve No" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text44" Left="461.16" Top="204.12" Width="117.18" Height="37.8" Border.Lines="Left, Top, Bottom" Text="[Q.GorevBaslangicTarihi] - " Format="Date" Format.Format="d" VertAlign="Center"/>
+      <TextObject Name="Text114" Left="578.34" Top="204.12" Width="139.86" Height="37.8" Border.Lines="Right, Top, Bottom" Text="[Q.GorevNumarasi]" VertAlign="Center"/>
+      <TextObject Name="Text1" Left="109.62" Top="166.32" Width="253.26" Height="37.8" Border.Lines="All" Text="[Q.AdSoyad]" VertAlign="Center"/>
+      <TextObject Name="Text10" Top="166.32" Width="109.62" Height="37.8" Border.Lines="All" Text="Adı Soyadı:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text41" Left="362.88" Top="166.32" Width="98.28" Height="37.8" Border.Lines="All" Text="Gündeliği" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text43" Left="461.16" Top="166.32" Width="257.04" Height="37.8" Border.Lines="All" Text="[Q.Gundelik]" Format="Currency" Format.UseLocale="true" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="109.62" Top="128.52" Width="253.26" Height="37.8" Border.Lines="All" Text="[Q.Kurumu]" VertAlign="Center"/>
+      <TextObject Name="Text29" Top="128.52" Width="109.62" Height="37.8" Border.Lines="All" Text="Kurumu" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text39" Left="362.88" Top="128.52" Width="98.28" Height="37.8" Border.Lines="All" Text="Kadro Derecesi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text40" Left="461.16" Top="128.52" Width="257.04" Height="37.8" Border.Lines="All" Text="[Q.KadroDerecesi]" VertAlign="Center"/>
+      <TextObject Name="Text18" Top="98.28" Width="718.2" Height="30.24" Border.Lines="All" Text="GÖREVLİNİN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text38" Width="718.2" Height="75.6" Border.Lines="All" Text="                  T.C. Türkiye Elektrik Dağıtım Anonim Şirketi Genel Müdürlüğü" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <PictureObject Name="Picture1" Width="83.16" Height="75.6" Border.Lines="All" Image="iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAwxSURBVGhDzVoJdFTVGX4smU1bpZ7T1lY4gIgQVkGBhC2JbAnJbFlEQVHArVZQsAd73A1RDrQgHCtoAiGZmUwmK5sUBSOQKqiAQmStaEUBgUz2WZJZvv73zk1gkklmAW2/c/4zM+/Nu/f/7r/eOyNdb8jSNkcrdUVPK7WmQoXW/LVCY7AptUYoNMZ6udZ8WKYzb5KnWubJNeV9xSP/J0jeqlKlFicr9Jb1CrWpSqktaCISoFcSetUYroi4rqBXhbagXq4zH5RrC1fJdZYEKb2ohxjxl4VcY+6rTC1cptQVfqdKK4MqfTOU+qKOyvtJPiStGZKuGJK+BFLaVkj37QAtBGghqhSpxc/9Spt3i5ji5wWbiAisUOos9aqMraS8JYDCHUXFSRQjMSkL78dpUByfjtL4VJSR9FevR89UWgwaL0pfeJ4RkmaskYsprz8UusJZSm3x95yAzkwK5ndQuDPpqSlAL00eTk2cDMQMhDt2KDCuH/IT7kd3rYViSHyXFoaNr9AXfSXXG+PF1NcJM3bIFXrze6r0cp/7hEGgVSRdKVZOeZRIDIZ1/Gg4Yofj24kT8Fv1RvQgd2v/fVVaKZ9LpTW/LLS4Nqh0hlvJjT5R3beN/N/YYcJgoiKRtEUYN/PvsI8fgfrxd6GGiCAmGg/OeIETZN/p+CwtFiUGPq/ObJHm5iqESuFDnpLfj0x9SpVBgRyBFZjINCZE0YrvjUsidxpC1rgb3pgh2B6vRTciKNcEXxzfIhZUUGa7UagWOlRJRb9XagpPc3eKkAR7jq34wulLuEsxSzSQRerHj8Lw5LVkqdASBRMelz4yMqFiCKCYoMJ1gKfUiEkYaMUL0T9lPS5OGANb7EgeG4gZhNem/okTDPRMV+KzjMkktAwOhdqQwx+6BhJyElYvzAn38XhgLtUcOwxHJ8Xj13SPZbFAzwUTntE0xiVC1c6hVBvSfJYIP7BbhdcMXQl0ia/BS3FRS67ExEPvUxIz+b3AAR6CsLQ/4g13lMY4UqjcETdpym+mL1zwpdgAg4QorTXjBNUMJ6VZZg0WI6aEWdxKbTUjIsmn1FwGSkSfSRK6CdX9oVSbVvKgugaXYtK+ZjRRfLA4YfHC4ibQM+GKKmML69fmCtWvQKkz3KbUmWy+ih344fYSlUIuNCMX0pQNkBJyfDLNhLG8ZozkNcMX4IPx7PTFnOC1LlKbUH+mVOedYYlJUPCBil1WKNaQMeWF4jdqDRj6WDmSXtyFOcv3Yu7KSuizKrEvfiZcVCt4gI8bgo9ipkJGxY3VlEBjRioslqnjni0oENIsyp4a449dNYByNREg5WVJeUgmxTf88xT+/UM93G4P/LC9CE0jboc1djRqY++Ca8JwPPDQ20TeyK2nJPKBxo9EeBuTsmmfYEHFT2tMZgEU8Ms0cav7zFr2MQ6duiw07gjPxQuojRuLmnuGoWbC3bBG94N9RSasDg+yd5zC7XOpdY/L5osSaK6whW0ZJhd4ZGrDnZyIQmOihpCl3PZfJBJkhd4PWLD5k++Fup2j8a+LYR3S30di9FDUJcbBW1cr7gK1jc14cs2nvlgiQvx1ykYi5luw7mRt9pm9p1oG6V6fCzN3Ztc66EeiSt9CrwXP+IikGI93SLmMRHwOYhdtww+XmoQqnaNlXwWswwagJnYUb0UYofryYjTTPbvdAYfDAa+7hT65sWnnSSxcW4mX8z7H3BV70CNxE3qSDFpQQrFWgW7kAfLkPCz8xydYbj6M380yQ0af/fQTwlOx1lguyfSmQVT8HH47O2GJSYvfR6OdTd41vHYb6jTTYR0V7bMGEWp4aj6aXS7YHU44nE7YbHYi44TL5RvvwqU6ZLz8AQp2n8Lq4iOQxryDLOMhNNvtuIFcT/PqhzB+eAJPE+GM13eh+7SNfgTahOKaKv1JSrsFC68mwdtuemjgIyWw1jv5pMFgW7MS1sF9OYmasSNIhsN95jS/x6zh8XjgdDZzIs3NzWhpaYHX40ZWAREYtw479n+LkU+WY23pEby44QAef6sS0TT/RwfP4oHM3VCQNZj7+RFoFdJdlmislpQaUxE/KBA3mAllZObPT3Ye1FfDdeJrWO8egppxIzmRaiJkX7eG3/N6vX5EnGQZRsRJ0tzsW6TZb+7FmpIjeD7nAI5+cxF5O4/j06pzPIYGzLHAtPs0ns8+wOPFj0CbUCs1LdsuKVl8XGURNsDSnIN8kqAgRevnz4Z1+B0+lyLXqktLpoBhkUG3SexEgCVoR3MLdzEXuRuzCHM19t7lIssYDsK8+yTVoT0Y9UgxiipOo3DXCcx+owKPra7EaiLK4tWfwNWS66KMZbS1XuhBWePWWYWoaQjNpRxFJrJAPx7cLMito6Mp6D/y3fR6uPvYbTZ43G446+rovZ0TYFZhwc/eM7pry6owK3MXupEnSHE5mLh4O+at+BjrtlRhJ7ndrRTsUTMDB7tPXvWSa13pcpk1nt8QmjU8F8+jhmqGldUMQaRm0hjUz0lD3SwdiZZL/f061M6YDPuqNzm5QKimWFRRDHRP2kRplgonI5SwAZMWbsb6si9xk97IU7C/8v7CLFLP3rAvRtFAR85YxfBd4+qawYkIYfHCLGMdzV6HoHpQX9ROnQDPT+fFk4Exf9W/eKZsVYwVzZFPlPEkQFsLP6U7ClmEepWvWIxI03PpoS08QIPBubUUl3vfguro/kSG2hEh1USMB74gZx0zHDVjhsH19RHxZOco2fddh4DuxgokWefqawEl2dAiUTOXx7IWWw22KkFBRB3GXDQtfx22t1b4if3t1Wj48wIfGRYz1KI4yyziwa5x5lwDbiC3ikoOt33hoWGT5HrzfG4RygoriqrEsJGj4YmHYb1rME/DTcteEleDw+F0YwDVDhbwHZXtQlhXrTZcohgx91Yk5TZK9+Yif9c3YtjIwFafxY112B2ofzAdXlErQsXYhdu4iwdUuDNhlV1rOsp7LbnGcFiabkLx3m/FkOHD29iA2pkJsA6lfouymfvsf8Sd0DFpyQ7eVQRUuBPhx1VqY4EgYlolJRbBuDtyi9jXr0X1wD6wjhiI5r2iloSJmEXbIyCyGaT/Ak6ETDNZmmrE6tJjYsjw4LlwDjUT70H1gD9yQpGgpcWNO+eXhZalWsXXWjnZNp0T4T+yTHr35FPrDothw0NT5ou4/IdeaFz0uLgSPs5ebKLCZ6Ks1VUF9xfmVgp1/jYfiVZMyFkcs7RSDBs63CeO8QxVmxQPb21oxTQQ3j9wlu9CwzkqYnsRmdaYKBgIjFh9s0yde/mbCw4xdGhoeOIRVN/ZG66jX4orkWHRO59RCcgOqHAgYft1ucZ4KPDZ1vC1S5aXB9/StqKZdoWXb/sNnMUF4kpksDtd6Du3GN1Djg8jtwb1Ze2s0YZo2aAF5ccdgXs7f1Bny5rBxqXPiAuRI3fn6TCsQft32qcrUgxbhdKdoE/W+FWbg6dhx6ZsX1w4w3PF9mDWGDivFN3ZUVFAxdsJK4DJeXWskAuNO0efdPNL31k7bx491ZdRmzIF7tMnxJXIsTTnC759COm8i1opXgB1pnShanBkZO4pdonJ2sO2IhPO0kLxKXJs238W3aZuDLrX8AnFBfupQ23MEiqGDPlf3j30sZizDa5jR2lP/pb4FDn2H7+Em0hBFuDBf2IQJDTGjUK3cBF949L3vtjdFgXUBDq3FsPb1CguRIZdh86hl47tgXyHcYGVF8LciZHQmTcIpSKGLOPVPYYjP5KjtdQBtZeEOpHhb7RViCIrsGPYrkmQu7Hf3PlP4gVhu1OnuEVjfu4VQ1XLJXZeEAEqDp9HHOtuKbB7UhvSNQlypYwtkOnN1Qptwf1ChesI5Rv39Hloy75nNxzHvmO1sAU5hfz+p0ZeI6Yu3cn3GawFCaz4FeEn7OwYVF9YJp9p6i9m/pkw9J150nTj8QGPfQB15qdYtO4LvG74Em+aj+CF3EN4eGUlYp7Zjl6pFAe0hWYEujyBpy6WuRDvnfSW/UqdRS1m+gUwYI1cSjDMke7Nq5CiX3FL0y20lzCDPpNs5BZgLtRRcdpjs/Zb+D//FWBatl2eWlSu1BemiNH/N5BpywaTYovkOnMJKXlMps29TErblMnGFnZUwwlMNnjYaQcRaYrSbvqJn95oCowqreVR9pcpMVSEkKT/AiZoKPEeZ9PhAAAAAElFTkSuQmCC"/>
+      <TextObject Name="Text121" Top="317.52" Width="240.03" Height="37.8" Border.Lines="All" Text="Toplam Görev Süresi (Gün)" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text123" Left="240.03" Top="317.52" Width="240.03" Height="37.8" Border.Lines="All" Text="Gündeliği (TL)" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text124" Left="480.06" Top="317.52" Width="240.03" Height="37.8" Border.Lines="All" Text="Tutarı (TL)" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text125" Top="355.32" Width="240.03" Height="37.8" Border.Lines="All" Text="[Q.GunSayisi]" VertAlign="Center"/>
+      <TextObject Name="Text126" Left="240.03" Top="355.32" Width="240.03" Height="37.8" Border.Lines="All" Text="[Q.Gundelik]" VertAlign="Center"/>
+      <TextObject Name="Text127" Left="480.06" Top="355.32" Width="240.03" Height="37.8" Border.Lines="All" Text="[Q.HakEdilenHarcirah]" VertAlign="Center"/>
+      <TextObject Name="Text130" Left="480.06" Top="393.12" Width="240.03" Height="37.8" Border.Lines="All" Text="[[Q.HakEdilenHarcirah] + [Q.UlasimToplam] + [Q.KonaklamaToplam] - [Q.AvansToplam]]" VertAlign="Center"/>
+      <TextObject Name="Text131" Top="393.12" Width="480.06" Height="37.8" Border.Lines="All" Text="Dip Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader5" Top="444.37" Width="718.2" Height="75.6" Condition="0">
+        <TextObject Name="Text47" Top="15.12" Width="718.2" Height="30.24" Border.Lines="All" Text="ULAŞIM GİDERLERİ" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text48" Top="45.36" Width="230.58" Height="30.24" Border.Lines="All" Text="Belge Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text58" Left="230.58" Top="45.36" Width="120.96" Height="30.24" Border.Lines="All" Text="Belge Numarası" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text59" Left="351.54" Top="45.36" Width="215.46" Height="30.24" Border.Lines="All" Text="Taşıtın Cinsi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text60" Left="567" Top="45.36" Width="151.2" Height="30.24" Border.Lines="All" Text="Tutarı (TL)" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <DataBand Name="Data6" Top="523.97" Width="718.2" Height="30.24" DataSource="Table1">
+          <TextObject Name="Text61" Width="230.58" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QUlasimGiderleri.BelgeTarihi]" Format="Date" Format.Format="d" VertAlign="Center"/>
+          <TextObject Name="Text69" Left="567" Width="151.2" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QUlasimGiderleri.BelgeTutari]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text68" Left="351.54" Width="215.46" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QUlasimGiderleri.TasitCinsi]" VertAlign="Center"/>
+          <TextObject Name="Text67" Left="230.58" Width="120.96" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QUlasimGiderleri.BelgeNumarasi]" VertAlign="Center"/>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter5" Top="558.21" Width="718.2" Height="30.24">
+          <TextObject Name="Text97" Left="567" Width="151.2" Height="30.24" Border.Lines="All" Text="[TUlasimGiderleri]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text89" Width="567" Height="30.24" Border.Lines="All" Text="Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupHeaderBand Name="GroupHeader6" Top="592.45" Width="718.2" Height="90.72" Condition="0">
+        <TextObject Name="Text71" Top="45.36" Width="128.52" Height="45.36" Border.Lines="All" Text="Konaklama Yeri" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text72" Left="128.52" Top="45.36" Width="105.84" Height="45.36" Border.Lines="All" Text="Başlangıç Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text73" Left="234.36" Top="45.36" Width="83.16" Height="45.36" Border.Lines="All" Text="Konaklama Gün Sayısı" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text77" Left="317.52" Top="45.36" Width="143.64" Height="45.36" Border.Lines="All" Text="Belge Tarihi/ Numarası" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text78" Left="461.16" Top="45.36" Width="102.06" Height="45.36" Border.Lines="All" Text="Belgenin Tutarı (TL)" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text79" Left="563.22" Top="45.36" Width="154.98" Height="45.36" Border.Lines="All" Text="Ödenecek Tutar (TL)&#13;&#10;(1,5*Gündelik)" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text70" Top="15.12" Width="718.2" Height="30.24" Border.Lines="All" Text="KONAKLAMA GİDERLERİ" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <DataBand Name="Data7" Top="687.17" Width="718.2" Height="30.24" DataSource="Table2">
+          <TextObject Name="Text80" Width="128.52" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.KonaklamaYeri]" VertAlign="Center"/>
+          <TextObject Name="Text82" Left="128.52" Width="105.84" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.BaslangicTarihi]" Format="Date" Format.Format="d" VertAlign="Center"/>
+          <TextObject Name="Text86" Left="461.16" Width="102.06" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.BelgeTutari]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text88" Left="563.22" Width="154.98" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.OdenecekTutar]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text84" Left="234.36" Width="83.16" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.KonaklamaGunSayisi]" VertAlign="Center"/>
+          <TextObject Name="Text85" Left="317.52" Width="86.94" Height="30.24" Border.Lines="Left, Top, Bottom" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.BelgeTarihi] - " Format="Date" Format.Format="d" VertAlign="Center"/>
+          <TextObject Name="Text115" Left="404.46" Width="56.7" Height="30.24" Border.Lines="Right, Top, Bottom" CanGrow="true" GrowToBottom="true" Text="[QKonaklamaGiderleri.BelgeNumarasi]" VertAlign="Center"/>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter6" Top="721.41" Width="718.2" Height="34.02">
+          <TextObject Name="Text98" Width="563.22" Height="34.02" Border.Lines="All" Text="Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TextObject Name="Text106" Left="563.22" Width="154.98" Height="34.02" Border.Lines="All" Text="[TKonaklamaGiderleri]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupHeaderBand Name="GroupHeader7" Top="759.43" Width="718.2" Height="75.6" Condition="0">
+        <TextObject Name="Text107" Top="15.12" Width="718.2" Height="30.24" Border.Lines="All" Text="AVANS" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text109" Left="347.76" Top="45.36" Width="370.44" Height="30.24" Border.Lines="All" Text="Tutar" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text108" Top="45.36" Width="347.76" Height="30.24" Border.Lines="All" Text="Ekleme Tarihi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <DataBand Name="Data8" Top="839.03" Width="718.2" Height="30.24" DataSource="Table5">
+          <TextObject Name="Text111" Left="347.76" Width="370.44" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QAvans.Tutar]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text110" Width="347.76" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QAvans.EklemeTarihi]" Format="Date" Format.Format="d" VertAlign="Center"/>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter7" Top="873.27" Width="718.2" Height="30.24">
+          <TextObject Name="Text113" Left="347.76" Width="370.44" Height="30.24" Border.Lines="All" Text="[TAvans]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TextObject Name="Text112" Width="347.76" Height="30.24" Border.Lines="All" Text="Toplam" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupHeaderBand Name="GroupHeader1" Top="907.51" Width="718.2" Height="77.49" Condition="0">
+        <TextObject Name="Text116" Top="9.45" Width="718.2" Height="30.24" Border.Lines="All" Text="ADRES BİLGİLERİ" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text117" Top="47.25" Width="349.65" Height="30.24" Border.Lines="All" Text="Göreve Nereden Gidilecek" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text118" Left="349.65" Top="47.25" Width="368.55" Height="30.24" Border.Lines="All" Text="Görev Yeri Adresi" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <DataBand Name="Data1" Top="989" Width="718.2" Height="30.24" DataSource="Table3">
+          <TextObject Name="Text119" Width="349.65" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QAdresBilgileri.GorevYeriNereden]" Format="Date" Format.Format="d" VertAlign="Center"/>
+          <TextObject Name="Text120" Left="349.65" Width="368.55" Height="30.24" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[QAdresBilgileri.GorevYeriNereye]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter1" Top="1023.24" Width="718.2" Height="30.24"/>
+      </GroupHeaderBand>
+      <GroupHeaderBand Name="GroupHeader2" Top="1057.48" Width="718.2" Height="39.69" Condition="0">
+        <TextObject Name="Text128" Top="9.45" Width="718.2" Height="30.24" Border.Lines="All" Text="Ek Belgeler" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <DataBand Name="Data2" Top="1101.17" Width="718.2" Height="30.24" DataSource="Table4">
+          <TextObject Name="Text129" Width="718.2" Height="30.24" Border.Lines="All" Cursor="Hand" Hyperlink.Value="http://localhost:1989/fileDownload/olurBelgesi/[QBelge.GorevEmriId]" Text="http://localhost:1989/fileDownload/[QBelge.Tip]/[QBelge.Id]" VertAlign="Center" Font="Arial, 9.75pt, style=Underline" TextFill.Color="Blue">
+            <Formats>
+              <GeneralFormat/>
+              <GeneralFormat/>
+            </Formats>
+          </TextObject>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter2" Top="1135.41" Width="718.2" Height="37.8"/>
+      </GroupHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>
