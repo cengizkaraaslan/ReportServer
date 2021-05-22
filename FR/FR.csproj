@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Report.cs" />
+    <Compile Remove="Controllers\ReportController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FastReport.OpenSource.Data.MsSql" Version="2021.1.7" />
     <PackageReference Include="FastReport.ReportBuilder" Version="2021.1.0" />
     <PackageReference Include="JxNet.Extensions.FastReport" Version="1.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
     <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="TowerSoft.HtmlToExcel" Version="1.0.1" />
@@ -24,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="FR\" />
   </ItemGroup>
 
