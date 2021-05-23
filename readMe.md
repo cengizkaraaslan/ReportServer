@@ -27,6 +27,10 @@ to run the project
 
 
 
+
+![shema](https://user-images.githubusercontent.com/34771444/119253916-0a8a1780-bbbc-11eb-8c6d-36f620d7b439.png)
+
+
 ![band_highlight_demo_en](https://user-images.githubusercontent.com/34771444/119251837-6d29e600-bbb1-11eb-855b-c4355a51e4a1.gif)
 
 
