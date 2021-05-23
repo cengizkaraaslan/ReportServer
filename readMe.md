@@ -27,6 +27,9 @@ to run the project
 ![band_highlight_demo_en](https://user-images.githubusercontent.com/34771444/119251837-6d29e600-bbb1-11eb-855b-c4355a51e4a1.gif)
 
 
+![docker](https://user-images.githubusercontent.com/34771444/119252475-29d17680-bbb5-11eb-9255-0d47cb60eeea.PNG)
+
+
 
 
 ![angular](https://user-images.githubusercontent.com/34771444/119252108-0e656c00-bbb3-11eb-9df3-e14d062630bb.PNG)
