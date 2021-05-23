@@ -1,5 +1,8 @@
 Each report generated is queued in rabbitmq . report is created and sent to client with the help of websocket
 
+
+rabbitmq run on docker in this example . With the help of SingleR produces netcore produces adds to the queue. rabbitmq consumer generates report and sends to client with the help of singleIR
+
 technology used
 
 ANGULAR
