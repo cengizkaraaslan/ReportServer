@@ -1,4 +1,4 @@
-each report generated is queued in rabbitmq . report is created and sent to client with the help of websocket
+Each report generated is queued in rabbitmq . report is created and sent to client with the help of websocket
 
 technology used
 
