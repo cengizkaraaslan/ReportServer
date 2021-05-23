@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
  
   
   send() {
-    console.log('prearing..')
+    console.log('preparing....')
     this.signalRService.setReport();
 
   }
